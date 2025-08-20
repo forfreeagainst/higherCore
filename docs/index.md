@@ -6,21 +6,14 @@ hero:
   name: "this-is-you"
   text: "Action speak louder than words."
   tagline: My great project tagline
-  actions:
-    - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
-    - theme: alt
-      text: API Examples
-      link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: 离不开
+    details: 学了几种编程语言，都离不开算法
+  - title: 离不开
+    details: 越接近源码和广泛应用
+  - title: 离不开
+    details: 运气好的时候，能力无法匹配
 ---
 
 ## 前端算法题
