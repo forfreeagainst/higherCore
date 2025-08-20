@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "this-is-you",
   description: "Action speak louder than words.",
-  base: process.env.NODE_ENV === 'production' ? '/be-yourself/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/higherCore/' : '/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
