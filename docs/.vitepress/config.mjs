@@ -14,10 +14,22 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Examples',
+
+        text: '算法', 
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: '数组', link: '/algorithm/array.md' },
+          { text: '链表', link: '/algorithm/linked_list.md' },
+          { text: '哈希表', link: '/algorithm/hashtable.md' },
+          { text: '字符串', link: '/algorithm/string.md' },
+          { text: '栈与队列', link: '/algorithm/stack_and_queue.md' },
+          { text: '二叉树', link: '/algorithm/binary_tree.md' },
+          { text: '回溯算法', link: "/algorithm/backtrack.md"},
+          { text: '贪心算法', link: "/algorithm/greedy.md"},
+          { text: '动态规划', link: "/algorithm/dynamic_programming.md"},
+          { text: '单调栈', link: "/algorithm/monotonic_stack.md"},
+          { text: '代码总结', link: "/algorithm/fine.md"},
+          { text: "leetcode100第一部", link: "/algorithm/algorithmOne.md"},
+          { text: "leetcode100第二部", link: "/algorithm/algorithmTwo.md"},
         ]
       }
     ],
