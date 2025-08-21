@@ -185,57 +185,6 @@ var evalRPN = function(tokens) {
 
 ## leetcode239:滑动窗口最大值
 
-::: details
-
-```js
-var maxSlidingWindow = function(nums, k) {
-    const arr = [];
-    for(let i = 0; i < k; i++) {
-        while (arr.length && arr[arr.length - 1] < nums[i]) {
-            arr.pop();
-        }
-        arr.push(nums[i]);
-    }
-    const res = [arr[0]];
-    for(let i = k; i < nums.length; i++) {
-         while(arr.length && arr[arr.length - 1] < nums[i]) {
-            arr.pop();
-        }
-        arr.push(nums[i]);
-
-        if (arr.length && arr[0] === nums[i - k]) {
-            arr.shift();
-        }
-
-        res.push(arr[0])
-    }
-    return res;
-};
-```
-
-### 暴力解法，时间超出限制
-
-```js
-var maxSlidingWindow = function(nums, k) {
-    const res = [];
-    const arr = [];
-    for(let i = 0; i < nums.length; i ++) {
-        arr.push(nums[i]);
-        if (arr.length === k) {
-            let max = -Infinity;
-            for(let j = 0; j < arr.length; j++) {
-                max = Math.max(max, arr[j]);
-            }
-            res.push(max);
-            arr.shift()
-        }
-    }
-    return res;
-};
-```
-
-:::
-
 ## :star: leetcode347:前K个高频元素
 
 ::: details
