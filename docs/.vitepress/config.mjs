@@ -9,12 +9,61 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Examples', link: '/markdown-examples' }
+      {
+        text: "数组", items: [
+          {text: '哈希表', link: "/Array/hashtable.md"},
+          {text: '双指针', link: "/Array/double_pointer.md"},
+          {text: '滑动窗口', link: "/Array/sliding_window.md"},
+          {text: '子串', link: "/Array/substring.md"},
+          {text: "普通数组", link: "/Array/ordinary_array.md"},
+          {text: "矩阵", link: "/Array/matrix.md"},
+          {text: "二分查找", link: "/Array/binary_search.md"},
+        ]
+      },
+      {
+        text: "链表", items: [
+          {text: '链表', link: "/linked_list/linked_list.md"}
+        ]
+      },
+      {
+        text: '二叉树', items: [
+          {text: '二叉树', link: "/binary_tree/binary_tree.md"}
+        ]
+      },
+      {
+        text: "回溯", items: [
+          {text: '回溯', link: "/backtrack/backtrack.md"}
+        ]
+      },
+       {
+        text: "栈", items: [
+          {text: '栈', link: "/stack/stack.md"}
+        ]
+      },
+       {
+        text: "堆", items: [
+          {text: '堆', link: "/heap/heap.md"}
+        ]
+      },
+      {
+        text: "贪心算法", items: [
+          {text: '贪心算法', link: "/greedy/greedy.md"}
+        ]
+      },
+       {
+        text: "动态规划", items: [
+          {text: '动态规划', link: "/dynamic_programming/dynamic_programming.md"}
+        ]
+      },
+      {
+        text: "其他", items: [
+          {text: "图论", link: "/other/graph_theory.md"},
+          {text: "技巧", link: "/other/skill.md"}
+        ]
+      }
     ],
-
     sidebar: [
       {
-
         text: '算法', 
         items: [
           { text: '数组', link: '/algorithm/array.md' },
@@ -33,7 +82,6 @@ export default defineConfig({
         ]
       }
     ],
-
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ]
