@@ -5,5 +5,5 @@ set -e
 
 git pull origin main
 git add .
-git commit -m "docs: 删除算法相关，单独抽离"
+git commit -m "docs: 文档更新"
 git push origin main
