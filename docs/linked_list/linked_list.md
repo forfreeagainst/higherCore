@@ -703,3 +703,681 @@ var addTwoNumbers = function(l1, l2) {
 ```
 
 :::
+
+## :star: 删除链表的倒数第 N 个结点(中等)
+
+```md
+给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。
+
+输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+
+输入：head = [1], n = 1
+输出：[]
+
+输入：head = [1,2], n = 1
+输出：[1]
+
+进阶：你能尝试使用一趟扫描实现吗？
+```
+
+::: details
+
+双指针
+
+```md
+数学原理：
+假设链表长度为 L，我们要找倒数第 n 个节点。
+
+快指针先走 n 步：此时快指针距离头节点有 n 个节点
+
+两个指针同时移动：
+
+当快指针到达末尾（null）时，它又移动了 L - n 步
+
+慢指针也移动了 L - n 步
+
+此时慢指针的位置是：(L - n) 从头部开始
+
+倒数第 n 个节点的位置是：L - n 从头部开始
+```
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+var removeNthFromEnd = function(head, n) {
+    const dummyNode = new ListNode(0, head);
+    let first = head;
+    let second = dummyNode;
+
+    for(let i = 0; i < n; i++) {
+        first = first.next;
+    }
+    while(first) {
+        first = first.next;
+        second = second.next;
+    }
+    second.next = second.next.next;
+    return dummyNode.next;
+};
+```
+
+计算链表长度
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+function getLength(head) {
+    let length = 0;
+    while(head) {
+        length += 1;
+        head = head.next;        
+    }
+    return length;
+}
+
+var removeNthFromEnd = function(head, n) {
+    let dummyNode = new ListNode(0, head);
+    const len = getLength(head);
+    cur = dummyNode;
+    for(let i = 0; i < len - n; i++) {
+        cur = cur.next;
+    }
+    cur.next = cur.next.next;
+    return dummyNode.next;
+};
+```
+
+:::
+
+## :star: 24. 两两交换链表中的节点(中等)
+
+```md
+给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改
+节点内部的值的情况下完成本题（即，只能进行节点交换）。
+
+输入：head = [1,2,3,4]
+输出：[2,1,4,3]
+
+输入：head = []
+输出：[]
+
+输入：head = [1]
+输出：[1]
+```
+
+::: details
+
+迭代
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    const dummyNode = new ListNode(0);
+    dummyNode.next = head;
+    let cur = dummyNode;
+    // 空节点的下两个节点
+    while(cur.next && cur.next.next) {
+        const node1 = cur.next;
+        const node3 = cur.next.next.next;
+        cur.next = cur.next.next;
+        cur.next.next = node1;
+        node1.next = node3;
+        cur = node1;
+    }
+    return dummyNode.next;
+};
+```
+
+递归
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var swapPairs = function(head) {
+    if (head === null|| head.next === null) {
+        return head;
+    }
+    const newHead = head.next;
+    head.next = swapPairs(newHead.next);
+    newHead.next = head;
+    return newHead;
+};
+```
+
+:::
+
+## :star: 25. K 个一组翻转链表(困难)(未必)
+
+```md
+给你链表的头节点 head ，每 k 个节点一组进行翻转，请你返回修改后的链表。
+
+k 是一个正整数，它的值小于或等于链表的长度。如果节点总数不是 k 的整数倍，
+那么请将最后剩余的节点保持原有顺序。
+
+你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
+
+输入：head = [1,2,3,4,5], k = 2
+输出：[2,1,4,3,5]
+
+输入：head = [1,2,3,4,5], k = 3
+输出：[3,2,1,4,5]
+
+进阶：你可以设计一个只用 O(1) 额外内存空间的算法解决此问题吗？
+```
+
+::: details
+
+```js
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+function myReverse(head, tail) {
+    let prev = tail.next;
+    let p = head;
+    while (prev !== tail) {
+        const nex = p.next;
+        p.next = prev;
+        prev = p;
+        p = nex;
+    }
+    return [tail, head];
+}
+
+var reverseKGroup = function(head, k) {
+    // 先学会翻转链表
+    const dummyNode = new ListNode(0);
+    dummyNode.next = head;
+    let cur = dummyNode;
+    while(head) {
+        let tail = cur;
+        // 查看剩余部分长度是否大于等于 k
+        for(let i = 0; i < k; i ++) {
+            tail = tail.next;
+            if (!tail) {
+                return dummyNode.next;
+            }
+        }
+        const next = tail.next;
+        [head, tail] = myReverse(head, tail);
+        // 把子链表重新接回原链表
+        cur.next = head;
+        tail.next = next;
+        cur = tail;
+        head = tail.next;
+    }
+    return dummyNode.next;
+};
+```
+
+:::
+
+## :star: 138. 随机链表的复制(中等)
+
+js手写一个嵌套引用的深拷贝，就能明白题意，更能上手。
+
+```md
+给你一个长度为 n 的链表，每个节点包含一个额外增加的随机指针 random ，
+该指针可以指向链表中的任何节点或空节点。
+
+构造这个链表的 深拷贝。 深拷贝应该正好由 n 个 全新 节点组成，其中每个新节点
+的值都设为其对应的原节点的值。新节点的 next 指针和 random 指针也都应指向
+复制链表中的新节点，并使原链表和复制链表中的这些指针能够表示相同的链表状态。
+复制链表中的指针都不应指向原链表中的节点 。
+
+例如，如果原链表中有 X 和 Y 两个节点，其中 X.random --> Y 。那么在复制链表中
+对应的两个节点 x 和 y ，同样有 x.random --> y 。
+
+返回复制链表的头节点。
+
+用一个由 n 个节点组成的链表来表示输入/输出中的链表。每个节点用一个 
+[val, random_index] 表示：
+
+val：一个表示 Node.val 的整数。
+random_index：随机指针指向的节点索引（范围从 0 到 n-1）；如果不指向任何
+节点，则为  null 。
+你的代码 只 接受原链表的头节点 head 作为传入参数。
+
+输入：head = [[7,null],[13,0],[11,4],[10,2],[1,0]]
+输出：[[7,null],[13,0],[11,4],[10,2],[1,0]]
+
+输入：head = [[1,1],[2,1]]
+输出：[[1,1],[2,1]]
+
+输入：head = [[3,null],[3,0],[3,null]]
+输出：[[3,null],[3,0],[3,null]]
+```
+
+::: details
+
+回溯法（递归）和哈希表（Map）
+
+```md
+1. 哈希表 (cachedNode)
+作用：存储原始节点和复制节点的映射关系
+
+避免重复复制：如果节点已经被复制过，直接从Map中获取
+
+处理循环引用：防止因为random指针形成的循环导致无限递归
+
+2. 回溯法 (递归)
+深度优先：先递归复制next链，再递归复制random链
+
+自底向上：从链表尾部开始构建，逐步向前
+```
+
+```js
+/**
+ * // Definition for a _Node.
+ * function _Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {_Node} head
+ * @return {_Node}
+ */
+var copyRandomList = function(head, cachedNode = new Map()) {
+    if (head === null) {
+        return null;
+    }
+    if (!cachedNode.has(head)) {
+        cachedNode.set(head, {val: head.val}), 
+        Object.assign(cachedNode.get(head), 
+        {
+            next: copyRandomList(head.next, cachedNode),
+            random: copyRandomList(head.random, cachedNode)
+        })
+    }
+    return cachedNode.get(head);
+}
+```
+
+更清晰的写法
+
+```js
+/**
+ * // Definition for a _Node.
+ * function _Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {_Node} head
+ * @return {_Node}
+ */
+var copyRandomList = function(head, cachedNode = new Map()) {
+    if (head === null) return null;
+    
+    // 如果已经复制过，直接返回
+    if (cachedNode.has(head)) {
+        return cachedNode.get(head);
+    }
+    
+    // 创建新节点（先不设置next和random）
+    const newNode = new Node(head.val);
+    cachedNode.set(head, newNode);
+    
+    // 递归复制next和random
+    newNode.next = copyRandomList(head.next, cachedNode);
+    newNode.random = copyRandomList(head.random, cachedNode);
+    
+    return newNode;
+}
+```
+
+迭代+节点拆分
+
+```js
+/**
+ * // Definition for a _Node.
+ * function _Node(val, next, random) {
+ *    this.val = val;
+ *    this.next = next;
+ *    this.random = random;
+ * };
+ */
+
+/**
+ * @param {_Node} head
+ * @return {_Node}
+ */
+var copyRandomList = function(head) {
+    if (head === null) {
+        return null;
+    }
+    for (let node = head; node !== null; node = node.next.next) {
+        const nodeNew = new Node(node.val, node.next, null);
+        node.next = nodeNew;
+    }
+    for (let node = head; node !== null; node = node.next.next) {
+        const nodeNew = node.next;
+        nodeNew.random = (node.random !== null) ? node.random.next : null;
+    }
+    const headNew = head.next;
+    for (let node = head; node !== null; node = node.next) {
+        const nodeNew = node.next;
+        node.next = node.next.next;
+        nodeNew.next = (nodeNew.next !== null) ? nodeNew.next.next : null;
+    }
+    return headNew;
+};
+```
+
+:::
+
+## :star: 148. 排序链表(中等)(暗藏杀机)
+
+```md
+给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+
+输入：head = [4,2,1,3]
+输出：[1,2,3,4]
+
+输入：head = [-1,5,3,4,0]
+输出：[-1,0,3,4,5]
+
+输入：head = []
+输出：[]
+
+进阶：你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+```
+
+::: details
+
+自底向上归并排序
+
+```js
+var sortList = function(head) {
+    if (!head || !head.next) return head;
+    
+    // 1. 计算链表长度
+    let length = 0;
+    let node = head;
+    while (node) {
+        length++;
+        node = node.next;
+    }
+    
+    // 2. 自底向上归并排序
+    const dummy = new ListNode(0);
+    dummy.next = head;
+    
+    for (let step = 1; step < length; step <<= 1) {
+        let prev = dummy;
+        let curr = dummy.next;
+        
+        while (curr) {
+            // 分割出两个子链表
+            const left = curr;
+            const right = split(left, step);
+            curr = split(right, step);
+            
+            // 合并两个有序链表
+            prev.next = merge(left, right);
+            
+            // 移动prev到合并后的链表末尾
+            while (prev.next) {
+                prev = prev.next;
+            }
+        }
+    }
+    
+    return dummy.next;
+};
+
+// 分割链表，返回后半部分的头节点
+function split(head, step) {
+    if (!head) return null;
+    
+    for (let i = 1; i < step && head.next; i++) {
+        head = head.next;
+    }
+    
+    const next = head.next;
+    head.next = null; // 切断链表
+    return next;
+}
+
+// 合并两个有序链表
+function merge(l1, l2) {
+    const dummy = new ListNode(0);
+    let curr = dummy;
+    
+    while (l1 && l2) {
+        if (l1.val < l2.val) {
+            curr.next = l1;
+            l1 = l1.next;
+        } else {
+            curr.next = l2;
+            l2 = l2.next;
+        }
+        curr = curr.next;
+    }
+    
+    curr.next = l1 || l2;
+    return dummy.next;
+}
+```
+
+自顶向下归并排序
+
+```js
+const merge = (head1, head2) => {
+    const dummyHead = new ListNode(0);
+    let temp = dummyHead, temp1 = head1, temp2 = head2;
+    while (temp1 !== null && temp2 !== null) {
+        if (temp1.val <= temp2.val) {
+            temp.next = temp1;
+            temp1 = temp1.next;
+        } else {
+            temp.next = temp2;
+            temp2 = temp2.next;
+        }
+        temp = temp.next;
+    }
+    if (temp1 !== null) {
+        temp.next = temp1;
+    } else if (temp2 !== null) {
+        temp.next = temp2;
+    }
+    return dummyHead.next;
+}
+
+const toSortList = (head, tail) => {
+    if (head === null) {
+        return head;
+    }
+    if (head.next === tail) {
+        head.next = null;
+        return head;
+    }
+    let slow = head, fast = head;
+    while (fast !== tail) {
+        slow = slow.next;
+        fast = fast.next;
+        if (fast !== tail) {
+            fast = fast.next;
+        }
+    }
+    const mid = slow;
+    return merge(toSortList(head, mid), toSortList(mid, tail));
+}
+
+var sortList = function(head) {
+    return toSortList(head, null);
+};
+```
+
+:::
+
+## :star: 23. 合并 K 个升序链表(困难)(能读懂的题目，不能叫困难)(下次再学)
+
+```md
+给你一个链表数组，每个链表都已经按升序排列。
+
+请你将所有链表合并到一个升序链表中，返回合并后的链表。
+
+输入：lists = [[1,4,5],[1,3,4],[2,6]]
+输出：[1,1,2,3,4,4,5,6]
+解释：链表数组如下：
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+将它们合并到一个有序链表中得到。
+1->1->2->3->4->4->5->6
+
+输入：lists = []
+输出：[]
+
+输入：lists = [[]]
+输出：[]
+```
+
+::: details
+
+```js
+
+```
+
+:::
+
+## :star: 146. LRU 缓存(中等)
+
+```md
+请你设计并实现一个满足  LRU (最近最少使用) 缓存 约束的数据结构。
+实现 LRUCache 类：
+LRUCache(int capacity) 以 正整数 作为容量 capacity 初始化 LRU 缓存
+int get(int key) 如果关键字 key 存在于缓存中，则返回关键字的值，否则返回 -1 。
+void put(int key, int value) 如果关键字 key 已经存在，则变更其数据值 value ；
+如果不存在，则向缓存中插入该组 key-value 。如果插入操作导致关键字数量超过 
+capacity ，则应该 逐出 最久未使用的关键字。
+函数 get 和 put 必须以 O(1) 的平均时间复杂度运行。
+
+输入
+["LRUCache", "put", "put", "get", "put", "get", "put", "get", "get", "get"]
+[[2], [1, 1], [2, 2], [1], [3, 3], [2], [4, 4], [1], [3], [4]]
+输出
+[null, null, null, 1, null, -1, null, -1, 3, 4]
+
+解释
+LRUCache lRUCache = new LRUCache(2);
+lRUCache.put(1, 1); // 缓存是 {1=1}
+lRUCache.put(2, 2); // 缓存是 {1=1, 2=2}
+lRUCache.get(1);    // 返回 1
+lRUCache.put(3, 3); // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+lRUCache.get(2);    // 返回 -1 (未找到)
+lRUCache.put(4, 4); // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+lRUCache.get(1);    // 返回 -1 (未找到)
+lRUCache.get(3);    // 返回 3
+lRUCache.get(4);    // 返回 4
+```
+
+::: details
+
+```js
+/**
+ * @param {number} capacity
+ */
+var LRUCache = function(capacity) {
+    this.capacity = capacity;
+    this.map = new Map();
+};
+
+/** 
+ * @param {number} key
+ * @return {number}
+ */
+LRUCache.prototype.get = function(key) {
+    if (!this.map.has(key)) return -1;
+    // 获取值后，删除并重新插入，更新为最近使用
+    const value = this.map.get(key);
+    this.map.delete(key);
+    this.map.set(key, value);
+    return value;
+};
+
+/** 
+ * @param {number} key 
+ * @param {number} value
+ * @return {void}
+ */
+LRUCache.prototype.put = function(key, value) {
+    // 如果 key 已存在，先删除
+    if (this.map.has(key)) {
+        this.map.delete(key);
+    }
+    // 插入新值
+    this.map.set(key, value);
+    // 如果超出容量，删除最久未使用的（即 Map 的第一个 key）
+    if (this.map.size > this.capacity) {
+        const firstKey = this.map.keys().next().value;
+        this.map.delete(firstKey);
+    }
+};
+
+/** 
+ * Your LRUCache object will be instantiated and called as such:
+ * var obj = new LRUCache(capacity)
+ * var param_1 = obj.get(key)
+ * obj.put(key,value)
+ */
+```
+
+:::
