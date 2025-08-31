@@ -22,43 +22,11 @@
 
 ## leetcode70:爬楼梯
 
-::: details
-
-```js
-
-```
-
-:::
-
 ## leetcode746:使用最小花费爬楼梯
-
-::: details
-
-```js
-
-```
-
-:::
 
 ## leetcode62:不同路径
 
-::: details
-
-```js
-
-```
-
-:::
-
 ## leetcode63:不同路径II
-
-::: details
-
-```js
-
-```
-
-:::
 
 ## leetcode343:整数拆分
 
@@ -221,14 +189,6 @@
 :::
 
 ## leetocde121买卖股票的最佳时机I
-
-::: details
-
-```js
-
-```
-
-:::
 
 ## leetcode122买卖股票的最佳时机II
 

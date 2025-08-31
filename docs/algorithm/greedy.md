@@ -94,61 +94,6 @@ var maxProfit = (prices) => {
 
 ## leetcode55:跳跃游戏
 
-::: details
-
-```md
-给你一个非负整数数组 nums ，你最初位于数组的 第一个下标 。数组中的每个元素代表你在该位置可以跳跃的最大长度。
-
-判断你是否能够到达最后一个下标，如果可以，返回 true ；否则，返回 false 。
-
-示例 1：
-
-输入：nums = [2,3,1,1,4]
-输出：true
-解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
-示例 2：
-
-输入：nums = [3,2,1,0,4]
-输出：false
-解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
-```
-
-### 太简洁了，这贪心
-
-```js
- var canJump = function(nums) {
-    let maxReach = 0; // 当前能到达的最远位置
-    for (let i = 0; i < nums.length; i++) {
-        if (i > maxReach) return false; // 当前位置已经无法到达
-        maxReach = Math.max(maxReach, i + nums[i]);
-        if (maxReach >= nums.length - 1) return true; // 可以到达终点
-    }
-    return true;
-};
-```
-
-### 动态规划此处不如贪心
-
-```js
-var canJump = function(nums) {
-    if (nums.length <= 1) return true;
-    const dp = Array(nums.length).fill(false);
-    dp[0] = true; // 起点可达
-    
-    for (let i = 0; i < nums.length; i++) {
-        if (!dp[i]) continue; // 当前点不可达，跳过
-        const maxJump = Math.min(i + nums[i], nums.length - 1);
-        for (let j = i + 1; j <= maxJump; j++) {
-            if (!dp[j]) dp[j] = true; // 标记可达
-        }
-        if (dp[nums.length - 1]) return true; // 提前终止
-    }
-    return dp[nums.length - 1];
-};
-```
-
-:::
-
 ## :star: leetcode45：跳跃游戏II
 
 ```md
@@ -326,26 +271,3 @@ var jump = function(nums) {
 :::
 
 ## :star: leetcode121. 买卖股票的最佳时机
-
-::: details
-
-```js
-var maxProfit = function(prices) {
-    let res = 0;
-    let cur = prices[0];
-    for(let i = 1; i < prices.length; i++) {
-        // const money = prices[i] - cur;
-        // if (money > res) {
-        //     res = money;
-        // }
-        // 可优化为
-        res = Math.max(prices[i] - cur, res);
-        if (prices[i] < cur) {
-            cur = prices[i]
-        }
-    }
-    return res;
-};
-```
-
-:::
