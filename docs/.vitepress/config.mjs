@@ -58,7 +58,8 @@ export default defineConfig({
       {
         text: "其他", items: [
           {text: "图论", link: "/other/graph_theory.md"},
-          {text: "技巧", link: "/other/skill.md"}
+          {text: "技巧", link: "/other/skill.md"},
+          {text: "重在属性展示", link: "/other/interview.md"},
         ]
       }
     ],
