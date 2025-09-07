@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "submit": "bash submit.sh",
+    "dev": "pnpm docs:dev",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"

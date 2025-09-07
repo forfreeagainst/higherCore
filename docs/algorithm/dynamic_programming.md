@@ -160,14 +160,6 @@
 
 ## leetcode198打家劫舍
 
-::: details
-
-```js
-
-```
-
-:::
-
 ## leetcode213打家劫舍II
 
 ::: details

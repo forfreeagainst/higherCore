@@ -186,4 +186,176 @@ var topKFrequent = function(nums, k) {
 
 :::
 
+## 面试题 17.14. 最小K个数(中等)
+
+```md
+设计一个算法，找出数组中最小的k个数。以任意顺序返回这k个数均可。
+
+输入： arr = [1,3,5,7,2,4,6,8], k = 4
+输出： [1,2,3,4]
+```
+
+::: details
+
+理解题意而已，回去等通知吧
+
+```js
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var smallestK = function(arr, k) {
+    arr.sort((a, b) => a - b);
+    return arr.slice(0, k)
+};
+```
+
+堆
+
+```js
+class MaxHeap {
+    constructor() {
+        this.heap = [];
+    }
+    
+    push(val) {
+        this.heap.push(val);
+        this.bubbleUp(this.heap.length - 1);
+    }
+    
+    pop() {
+        const max = this.heap[0];
+        const last = this.heap.pop();
+        if (this.heap.length > 0) {
+            this.heap[0] = last;
+            this.sinkDown(0);
+        }
+        return max;
+    }
+    
+    top() {
+        return this.heap[0];
+    }
+    
+    size() {
+        return this.heap.length;
+    }
+    
+    bubbleUp(idx) {
+        const element = this.heap[idx];
+        while (idx > 0) {
+            const parentIdx = Math.floor((idx - 1) / 2);
+            const parent = this.heap[parentIdx];
+            if (element <= parent) break;
+            this.heap[parentIdx] = element;
+            this.heap[idx] = parent;
+            idx = parentIdx;
+        }
+    }
+    
+    sinkDown(idx) {
+        const length = this.heap.length;
+        const element = this.heap[idx];
+        while (true) {
+            let leftChildIdx = 2 * idx + 1;
+            let rightChildIdx = 2 * idx + 2;
+            let leftChild, rightChild;
+            let swap = null;
+            
+            if (leftChildIdx < length) {
+                leftChild = this.heap[leftChildIdx];
+                if (leftChild > element) {
+                    swap = leftChildIdx;
+                }
+            }
+            
+            if (rightChildIdx < length) {
+                rightChild = this.heap[rightChildIdx];
+                if ((swap === null && rightChild > element) || 
+                    (swap !== null && rightChild > leftChild)) {
+                    swap = rightChildIdx;
+                }
+            }
+            
+            if (swap === null) break;
+            this.heap[idx] = this.heap[swap];
+            this.heap[swap] = element;
+            idx = swap;
+        }
+    }
+}
+
+var smallestK = function(arr, k) {
+    if (k === 0) return [];
+    const maxHeap = new MaxHeap();
+    for (let i = 0; i < k; i++) {
+        maxHeap.push(arr[i]);
+    }
+    for (let i = k; i < arr.length; i++) {
+        if (arr[i] < maxHeap.top()) {
+            maxHeap.pop();
+            maxHeap.push(arr[i]);
+        }
+    }
+    return maxHeap.heap;
+};
+```
+
+快排
+
+```js
+/**
+ * @param {number[]} arr
+ * @param {number} k
+ * @return {number[]}
+ */
+var smallestK = function(arr, k) {
+    randomizedSelected(arr, 0, arr.length - 1, k);
+    return arr.slice(0, k);
+}
+
+const randomizedSelected = (arr, l, r, k) => {
+    if (l >= r) {
+        return;
+    }
+    const pos = randomizedPartition(arr, l, r);
+    const num = pos - l + 1;
+    if (k === num) {
+        return;
+    } else if (k < num) {
+        randomizedSelected(arr, l, pos - 1, k);
+    } else {
+        randomizedSelected(arr, pos + 1, r, k - num);
+    }
+}
+
+// 基于随机的划分
+const randomizedPartition = (nums, l, r) => {
+    const i = parseInt(Math.random() * (r - l + 1)) + l;
+    swap(nums, r, i);
+    return partition(nums, l, r);
+}
+
+const partition = (nums, l, r) => {
+    const pivot = nums[r];
+    let i = l - 1;
+    for (let j = l; j <= r - 1; ++j) {
+        if (nums[j] <= pivot) {
+            i = i + 1;
+            swap(nums, i, j);
+        }
+    }
+    swap(nums, i + 1, r);
+    return i + 1;
+}
+
+const swap = (nums, i, j) => {
+    [nums[i], nums[j]] = [nums[j], nums[i]];
+}
+```
+
+
+:::
+
 ## :star: 295. 数据流的中位数(困难)(下次一定)

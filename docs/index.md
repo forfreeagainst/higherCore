@@ -21,6 +21,11 @@ features:
 题目共分为几个考察
 通过canvas绘图，描述执行过程。
 
+时间复杂度
+不是真正代码执行的时间，而是代码随着数据规模的扩展，展现的变化趋势。
+执行次数。
+[算法加强javascript-algorithms](https://github.com/trekhleb/javascript-algorithms)
+
 ## 前端算法题
 
 ```
