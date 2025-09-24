@@ -59,9 +59,23 @@ export default defineConfig({
         text: "其他", items: [
           {text: "图论", link: "/other/graph_theory.md"},
           {text: "技巧", link: "/other/skill.md"},
-          {text: "重在属性展示", link: "/other/interview.md"},
         ]
-      }
+      },
+       {
+        text: "文章",  
+        items: [
+           {text: "js手写题", items: [
+            {text: "手写new", link: "/article/jsHandwriting/new.md"},
+            {text: "手写call和bind", link: "/article/jsHandwriting/callAndBind.md"},
+            {text: "手写Promise及相关", link: "/article/jsHandwriting/promise.md"},
+            {text: "手写防抖和节流", link: "/article/jsHandwriting/debounceAndThrottle.md"},
+            {text: "手写instanceof和Flat和深拷贝", link: "/article/jsHandwriting/instanceofAndFlatAndCloneDeep.md"}
+          ]},
+          {text: "面试题", items: [
+            {text: "Canvas和SVG", link: "/article/CanvasAndSvg.md"},
+          ]}
+        ]
+      },
     ],
     sidebar: [
       {
